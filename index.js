@@ -1,17 +1,21 @@
-import { AppRegistry, useColorScheme } from 'react-native';
+import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { darkTheme, lightTheme } from './src/config/theme';
+import React from 'react';
+import { Auth0Provider } from 'react-native-auth0';
 
 const Main = () => {
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   return (
     <SafeAreaProvider>
-      <PaperProvider theme={theme}>
-        <App />
+      <PaperProvider>
+        <Auth0Provider
+          domain={'dev-vqn0jgptt0m34bjk.us.auth0.com'}
+          clientId={'JgRv6p9qLH7iaIwymWYGETlo02sF9we3'}
+        >
+          <App />
+        </Auth0Provider>
       </PaperProvider>
     </SafeAreaProvider>
   );

@@ -34,7 +34,7 @@ export const useGlobalStyles = () => {
 
     screenContainer: {
       flex: 1,
-      backgroundColor: theme.colors.background,
+      backgroundColor: 'white',
       paddingHorizontal: SPACING.md,
     },
     centeredContainer: {
