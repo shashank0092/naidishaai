@@ -7,11 +7,9 @@ const Test = () => {
   return (
     <View style={globalStyles.centeredContainer}>
       <Text style={[globalStyles.h1, globalStyles.textError]}>
-        Main Heading
+        Welcome To NaidishAi
       </Text>
-      <Text style={[globalStyles.body, { marginTop: 16 }]}>
-        Yeh ab bilkul sahi kaam karega!
-      </Text>
+      <Text style={[globalStyles.body, { marginTop: 16 }]}>Now AI For All</Text>
     </View>
   );
 };

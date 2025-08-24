@@ -10,20 +10,26 @@
     "test": "jest",
     "cleanandroid": "cd android && ./gradlew clean",
     "cleanios": "cd ios && xcodebuild clean",
-    "createandroidbuild": "cd android && ./gradlew assembleRelease",
+    "createandroidbuildtest": "cd android && ./gradlew assembleRelease",
+    "createandroidbuildproduction": "cd android && ./gradlew bundleRelease",
     "installandroidbuild": "adb install android/app/build/outputs/apk/release/app-release.apk",
     "resetstart": "npx react-native start --reset-cache",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.80.2",
+    "@reduxjs/toolkit": "^2.8.2",
+    "@tanstack/react-query": "^5.85.3",
+    "axios": "^1.11.0",
     "react": "19.1.0",
     "react-native": "0.80.2",
     "react-native-auth0": "^4.6.0",
+    "react-native-keychain": "^10.0.0",
     "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-svg": "^15.12.1",
-    "react-native-svg-transformer": "^1.5.1"
+    "react-native-svg-transformer": "^1.5.1",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

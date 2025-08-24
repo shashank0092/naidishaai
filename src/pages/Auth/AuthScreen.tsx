@@ -4,14 +4,35 @@ import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useGlobalStyles } from '../../config/globalStyles';
 import GoogleIcon from '../../assets/Google.svg';
 import { useAuth0 } from 'react-native-auth0';
+import { useCreateUser } from './handlers';
+import { SaveInKeyChain } from '../../utils/keychain';
+import { useAppSelector } from '../../store/hooks';
+import { ActivityIndicator } from 'react-native-paper';
 
 const AuthScreen = () => {
   const globalStyles = useGlobalStyles();
-  const { authorize, user } = useAuth0();
-  console.log(user, 'this is user');
+  const AuthLoader = useAppSelector((state) => state.auth.loading);
+  const User = useAppSelector((state) => state.auth.userProfile);
+  console.log(User, 'this is logged in user');
+  const { authorize, user, getCredentials } = useAuth0();
+  const { mutate: CreateUser } = useCreateUser();
+
   const onPress = async () => {
     try {
-      await authorize();
+      await authorize({
+        audience: 'https://quickstarts/api',
+      });
+      const credentials = await getCredentials();
+      const User = user;
+      if (User && credentials) {
+        await SaveInKeyChain('userToken', credentials.accessToken);
+        CreateUser({
+          email: User.email || '',
+          name: User.name || '',
+          picture: User.picture,
+        });
+      }
+      console.log(credentials, 'this is all creadtional');
     } catch (err) {
       console.log(err, 'this is an error while login');
     }
@@ -26,7 +47,15 @@ const AuthScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.googleButton} onPress={() => onPress()}>
-          <GoogleIcon width={22} height={22} />
+          <GoogleIcon
+            width={22}
+            height={22}
+            style={{ display: AuthLoader ? 'none' : 'flex' }}
+          />
+          <ActivityIndicator
+            color="red"
+            style={{ display: AuthLoader ? 'flex' : 'none' }}
+          />
           <Text style={styles.googleButtonText}>Sign in with Google</Text>
         </TouchableOpacity>
 

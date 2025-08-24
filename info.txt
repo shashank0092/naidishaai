@@ -1,0 +1,12 @@
+
+cd android
+./gradlew --stop
+cd ..
+
+rm -rf android/build android/app/build node_modules ~/.gradle/caches
+
+
+npm install
+
+
+npm run android
